@@ -76,6 +76,7 @@ function generaterandomnumber(){
 }
 
 setInterval(newgamestate,200);
+
 function newgamestate(){
     checkgrid();
     if(pieceobj==null){
