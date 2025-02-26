@@ -36,6 +36,7 @@ const SHAPES=[
         [1,1],
     ],
 ]
+
 // giving colors to each shape
 const COLOR=[
     "#fff",
@@ -47,17 +48,20 @@ const COLOR=[
     "#4B0082",
     "#FFB6C1",
 ]
+
 // how many rows and cols for the block
 const ROWS=20;
 const COLS=10;
 let score=0;
 let canvas=document.querySelector("#tetris");
 let scoreboard=document.querySelector("h2");
+
 // ctx is a pen in a drawing board
 let ctx=canvas.getContext("2d");
 ctx.scale(30,30);
 let pieceobj=null;
 let grid=generateGrid();
+
 // give a random shape 
 function generaterandomnumber(){
     let ran=Math.floor(Math.random()*7);
@@ -70,7 +74,7 @@ function generaterandomnumber(){
     let y=0;
     return {piece,x,y,colorIndex};
 }
-// let pieceobj=null;
+
 setInterval(newgamestate,200);
 function newgamestate(){
     checkgrid();
@@ -82,20 +86,22 @@ function newgamestate(){
     moveDown();
 }
 renderpiece();
+
 // to display piece
 function renderpiece(){
     if(pieceobj!=null){
-    let piece=pieceobj.piece;
-    for(let i=0;i<piece.length;i++){
-        for(let j=0;j<piece[i].length;j++){
-            if(piece[i][j]==1){
-                ctx.fillStyle=COLOR[pieceobj.colorIndex];
-                ctx.fillRect(pieceobj.x+j,pieceobj.y+i,1,1);
+        let piece=pieceobj.piece;
+        for(let i=0;i<piece.length;i++){
+            for(let j=0;j<piece[i].length;j++){
+                if(piece[i][j]==1){
+                    ctx.fillStyle=COLOR[pieceobj.colorIndex];
+                    ctx.fillRect(pieceobj.x+j,pieceobj.y+i,1,1);
+                }
             }
         }
     }
 }
-}
+
 // for movement
 function moveDown(){
     if(!collision(pieceobj.x,pieceobj.y+1)){
@@ -123,6 +129,7 @@ function moveDown(){
     }
     rendergrid();
 }
+
 // to rotate the block
 function rotate(){
     let rotatedpiece=[];
@@ -148,8 +155,8 @@ function rotate(){
         pieceobj.piece=rotatedpiece;
     }
     rendergrid();
-
 }
+
 function moveLeft(){
     if(!collision(pieceobj.x-1,pieceobj.y)){
         pieceobj.x-=1;
@@ -206,6 +213,7 @@ function rendergrid(){
     // making the present block as white and calling another block
     renderpiece();
 }
+
 function checkgrid(){
     let c=0;
     for(let i=0;i<grid.length;i++){
@@ -237,6 +245,7 @@ function checkgrid(){
     }
     scoreboard.innerHTML="Score: "+score;
 }
+
 // for movement according to the keyboard keys
 document.addEventListener("keydown", function (e) {
     console.log("Key pressed:", e);
